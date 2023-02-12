@@ -45,34 +45,12 @@ pip install -U pip
 pip install -e ".[dev]"
 ```
 
-### Documentation
-
-Functions and modules should always have docstrings which describe them. Function docstrings written in the [RestructedText](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html), [Google](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html), or [NumPy](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy) styles are preferred.
-
-Documentation can be published to our private [ReadTheDocs](https://readthedocs.com/organizations/newton-crypto/). Everything necessary
-for automatic generation is included in new projects by default, new repos just need to be enabled on ReadTheDocs to start the process.
-
-Sphinx is used to generate documentation. This README will be included, along with a reference section containing all functions, modules, and classes that can be auto-discovered. If `__all__` is set in a module's `__init__.py` file, only those functions, modules, or classes will be published in the docs. Properly formatted docstrings and parameter/variable typing will be parsed and linked automatically.
-
-References to modules, classes, and functions can be embedded in this README by using the following syntax:
-
-```
-{mod}`module.submodule_name`
-{func}`module.function_name`
-{class}`module.ClassName`
-```
-
 ### Pre-commit
 
 A number of pre-commit hooks are set up to ensure all commits meet basic code quality standards.
 
 If one of the hooks changes a file, you will need to `git add` that file and re-run `git commit` before being able to continue.
 
-### Git Workflow
-
-This repo is configured for trunk-based development. When adding a new fix or feature, create a new branch off of `main`.
-
-Merges into main _must always be rebased and squashed_. This can be done manually or with GitHub's "Squash and Merge" feature.
 
 ### Testing
 
