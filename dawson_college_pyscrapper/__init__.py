@@ -6,12 +6,12 @@ __author__ = """Jeffrey Boisvert"""
 __email__ = "info.jeffreyboisvert@gmail.com"
 __version__ = "0.0.0"
 
-from . import models
-from .backend import backend
+from . import models, scrapper, exceptions
 
 # any functions from backend you want to expose should be
 # imported above and added to the list below.
 __all__ = [
     "models",
-    "backend",
+    "scrapper",
+    "exceptions",
 ]
