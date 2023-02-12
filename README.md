@@ -1,10 +1,13 @@
 # Dawson College PyScrapper v0.0.0
 
-A Python module which contains useful functions to help scrap data from Dawson College which is a CEGEP in Montreal Quebec Canada.
+A Python module which contains useful functions to help scrap data from [Dawson College](https://www.dawsoncollege.qc.ca/) which is a CEGEP in Montreal Quebec Canada.
 
 ## Features
 
-- Highlights and core functionality.
+- Get information on all the programs offered by Dawson College (ex: Computer Science, Computer Engineering, etc.)
+- Get an estimate of the total number of students enrolled
+- Get the total number of faculty members
+
 
 ## Usage
 
@@ -12,10 +15,6 @@ A Python module which contains useful functions to help scrap data from Dawson C
 
     pip install git+ssh://git@github.com/jdboisvert/dawson-college-pyscrapper
     
-
-### Getting started
-
-What does a user need before they start using this module or service?
 
 ### Using the core functionality
 
@@ -87,41 +86,6 @@ Merges into main _must always be rebased and squashed_. This can be done manuall
 
     # full test suite and code coverage reporting
     tox
-
-### PRs and Releases
-
-GitHub Actions is configured to perform unit tests against MacOS and Linux runners using both Python 3.8, 3.9, and 3.10 for all new PRs.
-
-To prevent automatic uploads remove everything below it in tagged-release.yml and delete setup.cfg file
-
-If your work to a GitHub issue, be sure to reference it in the PR body. You can use the `closes` shortcut. eg: `Closes #123`.
-
-It will also check if the version has been bumped. To do that, use `bumpver update`. This will bump the version number everywhere and create a new commit.
-
-It will also check if the version has been bumped. To do that, use `bump2version`:
-
-    # "patch" bumps are for minor non-breaking changes, hotfixes,
-    # documentation updates, new tests, etc.
-    bump2version patch
-
-    # "minor" bumps are for significant backwards-compatible changes
-    bump2version minor
-
-    # "major" bumps are for breaking changes
-    bump2version major
-
-After merging in a PR, GitHub Actions will package the module and create a new release for it on GitHub.
-
-#### Beta and Production releases
-
-When a new version is created, the default is to flag the release as a "beta". After the release has been thoroughly tested and is ready for production, a new PR can be created to release it.
-
-These extra steps help ensure ensure everything gets a chance to be tested in staging and to enable automated deployments to production.
-
-    git checkout -b release/v1.2.3
-    bump2version release
-    git commit -am 'release: v1.2.3'
-    git push -u origin release/v1.2.3
 
 ## Credits
 
