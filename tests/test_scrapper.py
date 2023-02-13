@@ -24,15 +24,15 @@ from tests.utils import get_invalid_program_listing, get_valid_program_listing
         (
             "https://www.dawsoncollege.qc.ca/programs/program-name",
             get_valid_program_listing(),
-            "2023-01-01",
+            "January 1, 2023",
             Program(
                 name="Program Name",
-                modified_date="2023-01-01",
+                modified_date="January 1, 2023",
                 program_type="Certificate",
                 url="https://www.dawsoncollege.qc.ca/programs/program-name",
             ),
         ),
-        ("https://www.dawsoncollege.qc.ca/programs/program-name", get_invalid_program_listing(), "2023-01-01", None),
+        ("https://www.dawsoncollege.qc.ca/programs/program-name", get_invalid_program_listing(), "January 1, 2023", None),
     ],
 )
 def test_get_program_details(mocker, program_url, listed_program, returned_date, expected):
@@ -45,7 +45,7 @@ def test_get_programs_returns_list_of_programs(mocker, requests_mock):
     # Just mock this function to return a Program object with the given name and date since this function is tested above.
     mocked_program = Program(
         name="Program Name",
-        modified_date="2023-01-01",
+        modified_date="January 1, 2023",
         program_type="Certificate",
         url="https://www.dawsoncollege.qc.ca/programs/program-name",
     )
@@ -300,13 +300,13 @@ def test_scrap_value_correctly(mocker, *mocks):
     mocked_program = [
         Program(
             name="Program Name",
-            modified_date="2023-01-01",
+            modified_date="January 20, 2023",
             program_type="Certificate",
             url="https://www.dawsoncollege.qc.ca/programs/program-name",
         ),
         Program(
             name="Program Name 2",
-            modified_date="2023-01-01",
+            modified_date="January 20, 2023",
             program_type="Certificate",
             url="https://www.dawsoncollege.qc.ca/programs/program-name-2",
         ),
