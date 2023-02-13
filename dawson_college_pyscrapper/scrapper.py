@@ -85,12 +85,11 @@ def get_total_number_of_students() -> int:
     :raises AttributeError: If the content containing the number of students cannot be found.
     """
     # TODO should use something more reliable than google here.
-    soup = get_soup_of_page(
-        "https://www.google.com/search?q=dawson+college+number+of+students&stick=H4sIAAAAAAAAAOPgE-LUz9U3MLTMKjbV0s8ot9JPzs_JSU0uyczP088vSk_My6xKBHGKrfJKc5NSixTy0xSKS0pTUvNKihexKqYklhfn5ymANaWnKmCqAQDR74rvYgAAAA&sa=X&ved=2ahUKEwjXvq6b97XjAhUaQ80KHTRfCb8Q6BMoADAgegQIGhAC&biw=1156&bih=754"
-    )
+    url = "https://www.google.ca/search?q=How+Many+Students+does+Dawson+College+have%3F&sxsrf=AJOqlzXG6QAv21OAKIauoknY8WvZK09WdQ%3A1676260186748&ei=WrPpY8CoLbar5NoP7aaTkA4&ved=0ahUKEwjAve3ny5H9AhW2FVkFHW3TBOIQ4dUDCA8&uact=5&oq=How+Many+Students+does+Dawson+College+have%3F&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgATIFCCEQoAEyBQghEKABOgoIABBHENYEELADOgQIIxAnOgUIABCRAjoLCAAQgAQQsQMQgwE6CwguEIMBELEDEIAEOhEILhCABBCxAxCDARDHARDRAzoOCC4QxwEQsQMQ0QMQgAQ6CAgAELEDEIMBOg4ILhCABBCxAxDHARDRAzoICAAQgAQQsQM6BQgAEIAEOgsILhCABBCxAxCDAToFCC4QgAQ6BwgAEIAEEAo6BwguEIAEEAo6BQgAELEDOgoIABCABBBGEPsBOgkIABAWEB4Q8QQ6BQgAEIYDOgsIIRAWEB4Q8QQQHToGCAAQHhANOgQIIRAVOgcIIRCgARAKSgQIQRgASgQIRhgAUL8HWNQ1YKk7aANwAXgAgAGMAYgB7xiSAQQzOS40mAEAoAEByAEIwAEB&sclient=gws-wiz-serp"
+    soup = BeautifulSoup(requests.get(url).text.strip(), "html.parser")
 
-    tag = soup.find(class_="Z0LcW")
-    content = tag.contents[0].strip()
+    tags = soup.find_all(class_="BNeawe")
+    content = tags[4].contents[0].strip()
 
     return int(content.replace(",", ""))
 

@@ -2,9 +2,8 @@ from datetime import datetime
 import pytest
 import requests
 import requests_mock
-from bs4 import BeautifulSoup
 from freezegun import freeze_time
-from dawson_college_pyscrapper.constants import MAIN_WEBSITE_URL, PROGRAMS_LISTING_URL
+from dawson_college_pyscrapper.constants import PROGRAMS_LISTING_URL
 from dawson_college_pyscrapper.exceptions import PageDetailsError
 from dawson_college_pyscrapper.models import GeneralMetrics, Program, ProgramPageData
 
@@ -216,19 +215,28 @@ def test_get_programs_returns_empty_list_when_error_occurs(mocker, requests_mock
     assert result == []
 
 
-def test_get_total_number_of_students(requests_mock):
+def test_get_total_number_of_students(mocker):
     # For the sake of the test just return a number in the html. The page has much more than this normally.
+    # example_html = """
+    # <html>
+    #     <body>
+    #         <div class="BNeawe">Collège Dawson (French)</div>
+    #         <div class="BNeawe">Collège Dawson (French)</div>
+    #         <div class="BNeawe">Students</div>
+    #         <div class="BNeawe">11,000</div>
+    #     </body>
+    # </html>
+    # """
     example_html = """
     <html>
         <body>
-            <div class="Z0LcW t2b5Cf">11,000</div>
+            <div class="Z0LcW t2b5Cf">11,000.5</div>
         </body>
     </html>
     """
-    requests_mock.get(
-        "https://www.google.com/search?q=dawson+college+number+of+students&stick=H4sIAAAAAAAAAOPgE-LUz9U3MLTMKjbV0s8ot9JPzs_JSU0uyczP088vSk_My6xKBHGKrfJKc5NSixTy0xSKS0pTUvNKihexKqYklhfn5ymANaWnKmCqAQDR74rvYgAAAA&sa=X&ved=2ahUKEwjXvq6b97XjAhUaQ80KHTRfCb8Q6BMoADAgegQIGhAC&biw=1156&bih=754",
-        text=example_html,
-    )
+    mock_response = mocker.Mock()
+    mock_response.text = example_html
+    mocker.patch.object(requests, "get", return_value=mock_response)
 
     result = get_total_number_of_students()
 
@@ -244,8 +252,9 @@ def test_get_total_number_of_students_invalid_number_in_html(requests_mock):
         </body>
     </html>
     """
+    url = "https://www.google.ca/search?q=How+Many+Students+does+Dawson+College+have%3F&sxsrf=AJOqlzXG6QAv21OAKIauoknY8WvZK09WdQ%3A1676260186748&ei=WrPpY8CoLbar5NoP7aaTkA4&ved=0ahUKEwjAve3ny5H9AhW2FVkFHW3TBOIQ4dUDCA8&uact=5&oq=How+Many+Students+does+Dawson+College+have%3F&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgATIFCCEQoAEyBQghEKABOgoIABBHENYEELADOgQIIxAnOgUIABCRAjoLCAAQgAQQsQMQgwE6CwguEIMBELEDEIAEOhEILhCABBCxAxCDARDHARDRAzoOCC4QxwEQsQMQ0QMQgAQ6CAgAELEDEIMBOg4ILhCABBCxAxDHARDRAzoICAAQgAQQsQM6BQgAEIAEOgsILhCABBCxAxCDAToFCC4QgAQ6BwgAEIAEEAo6BwguEIAEEAo6BQgAELEDOgoIABCABBBGEPsBOgkIABAWEB4Q8QQ6BQgAEIYDOgsIIRAWEB4Q8QQQHToGCAAQHhANOgQIIRAVOgcIIRCgARAKSgQIQRgASgQIRhgAUL8HWNQ1YKk7aANwAXgAgAGMAYgB7xiSAQQzOS40mAEAoAEByAEIwAEB&sclient=gws-wiz-serp"
     requests_mock.get(
-        "https://www.google.com/search?q=dawson+college+number+of+students&stick=H4sIAAAAAAAAAOPgE-LUz9U3MLTMKjbV0s8ot9JPzs_JSU0uyczP088vSk_My6xKBHGKrfJKc5NSixTy0xSKS0pTUvNKihexKqYklhfn5ymANaWnKmCqAQDR74rvYgAAAA&sa=X&ved=2ahUKEwjXvq6b97XjAhUaQ80KHTRfCb8Q6BMoADAgegQIGhAC&biw=1156&bih=754",
+        url,
         text=example_html,
     )
 
@@ -261,8 +270,9 @@ def test_get_total_number_of_students_unable_to_find_tag(requests_mock):
         </body>
     </html>
     """
+    url = "https://www.google.ca/search?q=How+Many+Students+does+Dawson+College+have%3F&sxsrf=AJOqlzXG6QAv21OAKIauoknY8WvZK09WdQ%3A1676260186748&ei=WrPpY8CoLbar5NoP7aaTkA4&ved=0ahUKEwjAve3ny5H9AhW2FVkFHW3TBOIQ4dUDCA8&uact=5&oq=How+Many+Students+does+Dawson+College+have%3F&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgATIFCCEQoAEyBQghEKABOgoIABBHENYEELADOgQIIxAnOgUIABCRAjoLCAAQgAQQsQMQgwE6CwguEIMBELEDEIAEOhEILhCABBCxAxCDARDHARDRAzoOCC4QxwEQsQMQ0QMQgAQ6CAgAELEDEIMBOg4ILhCABBCxAxDHARDRAzoICAAQgAQQsQM6BQgAEIAEOgsILhCABBCxAxCDAToFCC4QgAQ6BwgAEIAEEAo6BwguEIAEEAo6BQgAELEDOgoIABCABBBGEPsBOgkIABAWEB4Q8QQ6BQgAEIYDOgsIIRAWEB4Q8QQQHToGCAAQHhANOgQIIRAVOgcIIRCgARAKSgQIQRgASgQIRhgAUL8HWNQ1YKk7aANwAXgAgAGMAYgB7xiSAQQzOS40mAEAoAEByAEIwAEB&sclient=gws-wiz-serp"
     requests_mock.get(
-        "https://www.google.com/search?q=dawson+college+number+of+students&stick=H4sIAAAAAAAAAOPgE-LUz9U3MLTMKjbV0s8ot9JPzs_JSU0uyczP088vSk_My6xKBHGKrfJKc5NSixTy0xSKS0pTUvNKihexKqYklhfn5ymANaWnKmCqAQDR74rvYgAAAA&sa=X&ved=2ahUKEwjXvq6b97XjAhUaQ80KHTRfCb8Q6BMoADAgegQIGhAC&biw=1156&bih=754",
+        url,
         text=example_html,
     )
 
