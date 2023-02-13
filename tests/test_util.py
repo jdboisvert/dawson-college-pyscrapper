@@ -5,6 +5,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 from dawson_college_pyscrapper.constants import DEFAULT_HEADERS
+from dawson_college_pyscrapper.exceptions import PageDetailsError
 from dawson_college_pyscrapper.util import get_date_of_modification, get_number_of_type, get_soup_of_page, parse_program_page
 
 
@@ -19,6 +20,17 @@ def mock_successful_response():
     return Response()
 
 
+@pytest.fixture
+def mock_failed_response():
+    class Response:
+        def __init__(self):
+            self.ok = False
+            self.text = ""
+            self.status_code = 404
+
+    return Response()
+
+
 def test_get_soup_of_page(mocker, mock_successful_response):
     mocker.patch("requests.get").return_value = mock_successful_response
     url = "https://www.dawsoncollege.qc.ca/programs"
@@ -26,6 +38,13 @@ def test_get_soup_of_page(mocker, mock_successful_response):
     assert (
         soup.prettify().strip() == '<html>\n <body>\n  <p class="page-mod-date">\n   Last Modified: 01-01-2022\n  </p>\n </body>\n</html>'
     )
+
+
+def test_get_soup_of_page_not_ok(mocker, mock_failed_response):
+    mocker.patch("requests.get").return_value = mock_failed_response
+    url = "https://www.dawsoncollege.qc.ca/programs"
+    with pytest.raises(PageDetailsError):
+        soup = get_soup_of_page(url)
 
 
 def test_get_date_of_modification(mocker, mock_successful_response):
