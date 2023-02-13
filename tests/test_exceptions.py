@@ -7,6 +7,7 @@ import pytest
 
 from dawson_college_pyscrapper.exceptions import PageDetailsError
 
+
 def test_PageDetailsError_exception():
     with pytest.raises(PageDetailsError) as exc_info:
         raise PageDetailsError()

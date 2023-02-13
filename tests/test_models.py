@@ -9,12 +9,13 @@ from typing import List
 
 from dawson_college_pyscrapper.models import Program, GeneralMetrics, ProgramPageData
 
+
 def test_Program_model():
     program = Program(
         name="Program Name",
         modified_date="2021-01-01",
         program_type="Certificate",
-        url="https://www.dawsoncollege.qc.ca/programs/program-name"
+        url="https://www.dawsoncollege.qc.ca/programs/program-name",
     )
 
     assert program.name == "Program Name"
@@ -22,22 +23,20 @@ def test_Program_model():
     assert program.program_type == "Certificate"
     assert program.url == "https://www.dawsoncollege.qc.ca/programs/program-name"
 
+
 def test_GeneralMetrics_model():
     programs = [
         Program(
             name="Program 1",
             modified_date="2021-01-01",
             program_type="Certificate",
-            url="https://www.dawsoncollege.qc.ca/programs/program-1"
+            url="https://www.dawsoncollege.qc.ca/programs/program-1",
         ),
         Program(
-            name="Program 2",
-            modified_date="2020-01-01",
-            program_type="Diploma",
-            url="https://www.dawsoncollege.qc.ca/programs/program-2"
+            name="Program 2", modified_date="2020-01-01", program_type="Diploma", url="https://www.dawsoncollege.qc.ca/programs/program-2"
         ),
     ]
-    
+
     now = datetime.now()
     metrics = GeneralMetrics(
         date=now,
@@ -50,7 +49,7 @@ def test_GeneralMetrics_model():
         number_of_students=1000,
         number_of_faculty=50,
         total_year_counts={2021: 2},
-        programs=programs
+        programs=programs,
     )
 
     assert metrics.date == now
@@ -66,7 +65,7 @@ def test_GeneralMetrics_model():
     assert metrics.programs == programs
 
     assert metrics.number_of_students_per_faculty == 20.0
-    
+
     # TODO circle back to this later
     # sorted_programs = metrics.programs_sorted
     # assert sorted_programs[0].name == "Program 1"

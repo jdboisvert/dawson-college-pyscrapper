@@ -9,12 +9,13 @@ from typing import List
 class Program:
     """
     Represents a program at Dawson College.
-    
+
     :param name: Name of the program.
     :param modified_date: Date when the program was last modified (ex: 2021-01-01).
     :param program_type: Type of the program (ex: Certificate, Diploma, etc.).
     :param url: URL of the program (ex: https://www.dawsoncollege.qc.ca/programs/program-name)
     """
+
     name: str
     modified_date: str
     program_type: str
@@ -25,8 +26,8 @@ class Program:
 class GeneralMetrics:
     """
     Represents the general metrics that are aggregated about Dawson College.
-    
-    :param date: Date when the metrics were pulled 
+
+    :param date: Date when the metrics were pulled
     :param total_programs_offered: Total number of programs offered at Dawson College.
     :param number_of_programs: Number of programs offered at Dawson College.
     :param number_of_profiles: Number of profiles offered at Dawson College.
@@ -35,9 +36,10 @@ class GeneralMetrics:
     :param number_of_general_studies: Number of general studies offered at Dawson College.
     :param number_of_students: Number of students at Dawson College.
     :param number_of_faculty: Number of faculty at Dawson College.
-    :param total_year_counts: Number of programs offered per year. This will be a dict object formatted as follows: {year: number_of_programs_offered}.    
-    :param programs: List of programs offered at Dawson College with additional details. 
+    :param total_year_counts: Number of programs offered per year. This will be a dict object formatted as follows: {year: number_of_programs_offered}.
+    :param programs: List of programs offered at Dawson College with additional details.
     """
+
     date: datetime
     total_programs_offered: int
 
@@ -53,6 +55,7 @@ class GeneralMetrics:
     programs: List[Program]
 
     def __post_init__(self):
+        """Ran after the __init__ method. This is used to convert the programs list to a list of Program objects."""
         for i in range(len(self.programs)):
             if not isinstance(self.programs[i], Program):
                 self.programs[i] = Program(**{**self.programs[i]})
@@ -61,7 +64,7 @@ class GeneralMetrics:
     def number_of_students_per_faculty(self) -> float:
         """
         Returns the number of students per faculty at Dawson College.
-        
+
         :return: Number of students per faculty ratio at Dawson College rounded to 2 decimal places.
         """
         return round((self.number_of_students / self.number_of_faculty), 2)
@@ -70,7 +73,7 @@ class GeneralMetrics:
     def programs_sorted(self) -> List[Program]:
         """
         Returns the list of programs sorted by the date they were last modified.
-        
+
         :return: List of programs sorted by the date they were last modified.
         """
         return sorted(
@@ -78,12 +81,14 @@ class GeneralMetrics:
             key=lambda program: datetime.strptime(program.modified_date, "%B %d, %Y"),
             reverse=True,
         )
-        
+
+
 @dataclass(frozen=True)
 class ProgramPageData:
     """
     A dataclass that represents the data that is scraped from a program page.
-    
+
     :param date: Date when the page was modified (ex: 2021-01-01).
     """
+
     date: str
