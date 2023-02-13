@@ -8,9 +8,9 @@ from bs4 import BeautifulSoup, Tag
 import pandas as pd
 import logging
 
-from dawson_college_pyscrapper.constants import PROGRAMS_LISTING_URL, MAIN_WEBSITE_URL, DEFAULT_HEADERS
+from dawson_college_pyscrapper.constants import PROGRAMS_LISTING_URL, MAIN_WEBSITE_URL
 from dawson_college_pyscrapper.exceptions import PageDetailsError
-from dawson_college_pyscrapper.models import Program, GeneralMetrics, ProgramPageData
+from dawson_college_pyscrapper.models import Program, GeneralMetrics
 from dawson_college_pyscrapper.util import get_number_of_type, get_soup_of_page, parse_program_page
 
 
