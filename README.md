@@ -14,7 +14,7 @@ A Python module which contains useful functions to help scrap data from [Dawson 
 ### Installation
 
     pip install git+ssh://git@github.com/jdboisvert/dawson-college-pyscrapper
-    
+
 
 ### Using the core functionality
 
@@ -50,6 +50,9 @@ pip install -e ".[dev]"
 A number of pre-commit hooks are set up to ensure all commits meet basic code quality standards.
 
 If one of the hooks changes a file, you will need to `git add` that file and re-run `git commit` before being able to continue.
+
+To Install:
+    pre-commit install
 
 
 ### Testing

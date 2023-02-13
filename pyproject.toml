@@ -29,7 +29,8 @@ dev = [
     "myst-parser==0.18.0",
     "mock==5.0.1",
     "pytest-mock==3.10.0",
-    "requests-mock==1.10.0"
+    "requests-mock==1.10.0",
+    "freezegun==1.2.2"
 ]
 
 [project.urls]
