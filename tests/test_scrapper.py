@@ -12,7 +12,7 @@ from dawson_college_pyscrapper.scrapper import (
     get_programs,
     get_total_number_of_faculty,
     get_total_number_of_students,
-    scrap,
+    scrape,
 )
 from tests.utils import get_invalid_program_listing, get_invalid_program_listing_empty, get_valid_program_listing
 
@@ -325,7 +325,7 @@ def test_scrap_value_correctly(mocker, *mocks):
     mocker.patch("dawson_college_pyscrapper.scrapper.get_programs", return_value=mocked_program)
     mocker.patch("dawson_college_pyscrapper.scrapper.get_number_of_type", return_value=10)
 
-    result = scrap()
+    result = scrape()
 
     assert isinstance(result, GeneralMetrics)
     assert result.date == datetime.now()  # Should be frozen to 2023-01-20

@@ -124,9 +124,9 @@ def get_total_number_of_faculty() -> int:
     return int(tags[0].contents[0])
 
 
-def scrap() -> GeneralMetrics:
+def scrape() -> GeneralMetrics:
     """
-    A general purpose scrap method which will scrap all the data from the website and return it as a GeneralMetrics object.
+    A general purpose scrape method which will scrape all the data from the website and return it as a GeneralMetrics object.
 
     This is mainly a wrapper of the other methods offered and some nice to have metrics.
 
