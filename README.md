@@ -1,4 +1,4 @@
-# Dawson College PyScrapper v1.1.0
+# Dawson College PyScrapper v1.1.1
 
 A Python module which contains useful functions to help scrape data from [Dawson College](https://www.dawsoncollege.qc.ca/) which is a CEGEP in Montreal Quebec Canada.
 
@@ -65,21 +65,21 @@ print(f"Total number of faculty members: {total_number_of_faculty_members}")
 ```python
 from dawson_college_pyscrapper.scrapper import scrape
 
-generalMetrics = scrape()
-print(f"Total programs offered: {GeneralMetrics.total_programs_offered}")
-print(f"Number of programs: {GeneralMetrics.number_of_programs}")
-print(f"Number of profiles: {GeneralMetrics.number_of_profiles}")
-print(f"Number of disciplines: {GeneralMetrics.number_of_disciplines}")
-print(f"Number of special studies: {GeneralMetrics.number_of_special_studies}")
-print(f"Number of general studies: {GeneralMetrics.number_of_General_studies}")
+general_metrics = scrape()
+print(f"Total programs offered: {general_metrics.total_programs_offered}")
+print(f"Number of programs: {general_metrics.number_of_programs}")
+print(f"Number of profiles: {general_metrics.number_of_profiles}")
+print(f"Number of disciplines: {general_metrics.number_of_disciplines}")
+print(f"Number of special studies: {general_metrics.number_of_special_studies}")
+print(f"Number of general studies: {general_metrics.number_of_General_studies}")
 print("\n")
 print("Year count:")
-for year, count in GeneralMetrics.total_year_counts.items():
+for year, count in general_metrics.total_year_counts.items():
     print(f"{year}: {count}")
 
 print("\n")
 print("Programs:")
-for program in GeneralMetrics.programs:
+for program in general_metrics.programs:
     print(f"Program Name: {program.name}")
     print(f"Modified Date: {program.modified_date}")
     print(f"Program Type: {program.program_type}")
