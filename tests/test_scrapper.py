@@ -14,7 +14,7 @@ from dawson_college_pyscrapper.scrapper import (
     get_total_number_of_students,
     scrap,
 )
-from tests.utils import get_invalid_program_listing, get_valid_program_listing
+from tests.utils import get_invalid_program_listing, get_invalid_program_listing_empty, get_valid_program_listing
 
 
 @pytest.mark.parametrize(
@@ -32,6 +32,7 @@ from tests.utils import get_invalid_program_listing, get_valid_program_listing
             ),
         ),
         ("https://www.dawsoncollege.qc.ca/programs/program-name", get_invalid_program_listing(), "January 1, 2023", None),
+        ("https://www.dawsoncollege.qc.ca/programs/program-name", get_invalid_program_listing_empty(), None, None),
     ],
 )
 def test_get_program_details(mocker, program_url, listed_program, returned_date, expected):

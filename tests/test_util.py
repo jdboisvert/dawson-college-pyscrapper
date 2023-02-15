@@ -21,6 +21,17 @@ def mock_successful_response():
 
 
 @pytest.fixture
+def mock_successful_response_no_content():
+    class Response:
+        def __init__(self):
+            self.ok = True
+            self.text = "<html><body></body></html>"
+            self.status_code = 200
+
+    return Response()
+
+
+@pytest.fixture
 def mock_failed_response():
     class Response:
         def __init__(self):
@@ -53,6 +64,14 @@ def test_get_date_of_modification(mocker, mock_successful_response):
     soup = get_soup_of_page(url)
     date_modified = get_date_of_modification(soup)
     assert date_modified == "01-01-2022"
+
+
+def test_get_date_of_modification_not_found(mocker, mock_successful_response_no_content):
+    mocker.patch("requests.get").return_value = mock_successful_response_no_content
+    url = "https://www.dawsoncollege.qc.ca/programs"
+    soup = get_soup_of_page(url)
+    date_modified = get_date_of_modification(soup)
+    assert date_modified == ""
 
 
 def test_parse_program_page(mocker, mock_successful_response):
