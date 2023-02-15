@@ -31,8 +31,6 @@ def get_soup_of_page(url: str, header: Optional[Dict[str, str]] = None) -> Beaut
         logger.debug(f"Failed to get the page at {url}. Got response code {response.status_code}")
         raise PageDetailsError
 
-    print(response.text.strip())
-
     return BeautifulSoup(response.text.strip(), "lxml")
 
 
@@ -43,10 +41,13 @@ def get_date_of_modification(html_soup: BeautifulSoup) -> str:
     :param html_soup: The BeautifulSoup object of the page to get the date of modification of.
     :return: The date of modification of the page. If the date of modification is not found, an empty string will be returned.
     """
-    # TODO this throws error. Fix it.
-    date_modified_text = html_soup.find(class_="page-mod-date").contents[0].strip()
+    default_return = ""
+    if not (contents := html_soup.find(class_="page-mod-date").contents):
+        return default_return
 
-    return date_modified_text.replace("Last Modified: ", "")
+    date_modified_text = contents[0].strip()
+
+    return date_modified_text.replace("Last Modified: ", default_return)
 
 
 def parse_program_page(program_url: str) -> ProgramPageData:
