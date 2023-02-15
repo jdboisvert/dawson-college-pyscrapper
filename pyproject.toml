@@ -50,7 +50,7 @@ line-length = 140
 
 # Docs: https://gitlab.com/mbarkhau/pycalver
 [bumpver]
-current_version = "0.0.0"
+current_version = "1.0.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "[bumpver] {new_version}"
 commit = true
@@ -59,17 +59,16 @@ push = false
 
 [bumpver.file_patterns]
 "README.md"  = [
-    "{version}"
+    "v{version}"
 ]
 "VERSION" = [
     "{version}"
 ]
 "pyproject.toml" = [
     'current_version = "{version}"',
-    'version = "{version}"',
 ]
-"setup.py" = [
-    '"VERSION = "{version}"'
+"setup.cfg" = [
+    'version = {version}'
 ]
 "dawson_college_pyscrapper/__init__.py" = [
     '__version__ = "{version}"'
