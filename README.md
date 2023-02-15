@@ -1,4 +1,4 @@
-# Dawson College PyScrapper v1.0.0
+# Dawson College PyScrapper v1.0.1
 
 A Python module which contains useful functions to help scrap data from [Dawson College](https://www.dawsoncollege.qc.ca/) which is a CEGEP in Montreal Quebec Canada.
 

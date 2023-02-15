@@ -4,7 +4,7 @@
 
 __author__ = """Jeffrey Boisvert"""
 __email__ = "info.jeffreyboisvert@gmail.com"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from . import models, scrapper, exceptions
 
