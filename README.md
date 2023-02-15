@@ -106,8 +106,8 @@ eval "$(pyenv virtualenv-init -)"
 source ~/.zshrc
 
 # create a virtualenv
-pyenv install 3.11.1
-pyenv virtualenv 3.11.1 dawson_college_pyscrapper
+pyenv install 1.0.0
+pyenv virtualenv 1.0.0 dawson_college_pyscrapper
 pyenv activate dawson_college_pyscrapper
 
 # install dependencies
