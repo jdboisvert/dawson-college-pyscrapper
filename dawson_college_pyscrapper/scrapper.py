@@ -29,6 +29,10 @@ def get_program_details(program_url: str, listed_program: Tag) -> Optional[Progr
         logger.debug(f"Failed to get the program type for {program_url}, and listed_program: {listed_program}")
         return None
 
+    if not program_type.contents:
+        logger.debug(f"Failed to get the program type contents for {program_url}, and listed_program: {listed_program}")
+        return None
+
     program_type_data = program_type.contents[0].strip()
     program_name = listed_program.find(class_="program-name").find("a").contents[0].strip()
     program_page_data = parse_program_page(program_url=program_url)
@@ -85,12 +89,15 @@ def get_total_number_of_students() -> int:
     :raises AttributeError: If the content containing the number of students cannot be found.
     """
     # TODO should use something more reliable than google here.
-    soup = get_soup_of_page(
-        "https://www.google.com/search?q=dawson+college+number+of+students&stick=H4sIAAAAAAAAAOPgE-LUz9U3MLTMKjbV0s8ot9JPzs_JSU0uyczP088vSk_My6xKBHGKrfJKc5NSixTy0xSKS0pTUvNKihexKqYklhfn5ymANaWnKmCqAQDR74rvYgAAAA&sa=X&ved=2ahUKEwjXvq6b97XjAhUaQ80KHTRfCb8Q6BMoADAgegQIGhAC&biw=1156&bih=754"
-    )
+    url = "https://www.google.ca/search?q=How+Many+Students+does+Dawson+College+have%3F&sxsrf=AJOqlzXG6QAv21OAKIauoknY8WvZK09WdQ%3A1676260186748&ei=WrPpY8CoLbar5NoP7aaTkA4&ved=0ahUKEwjAve3ny5H9AhW2FVkFHW3TBOIQ4dUDCA8&uact=5&oq=How+Many+Students+does+Dawson+College+have%3F&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAEyBQghEKABMgUIIRCgATIFCCEQoAEyBQghEKABOgoIABBHENYEELADOgQIIxAnOgUIABCRAjoLCAAQgAQQsQMQgwE6CwguEIMBELEDEIAEOhEILhCABBCxAxCDARDHARDRAzoOCC4QxwEQsQMQ0QMQgAQ6CAgAELEDEIMBOg4ILhCABBCxAxDHARDRAzoICAAQgAQQsQM6BQgAEIAEOgsILhCABBCxAxCDAToFCC4QgAQ6BwgAEIAEEAo6BwguEIAEEAo6BQgAELEDOgoIABCABBBGEPsBOgkIABAWEB4Q8QQ6BQgAEIYDOgsIIRAWEB4Q8QQQHToGCAAQHhANOgQIIRAVOgcIIRCgARAKSgQIQRgASgQIRhgAUL8HWNQ1YKk7aANwAXgAgAGMAYgB7xiSAQQzOS40mAEAoAEByAEIwAEB&sclient=gws-wiz-serp"
+    soup = BeautifulSoup(requests.get(url).text.strip(), "html.parser")
 
-    tag = soup.find(class_="Z0LcW")
-    content = tag.contents[0].strip()
+    tags = soup.find_all(class_="BNeawe")
+
+    if not tags or len(tags) < 5:
+        raise AttributeError("Could not find the content containing the number of students.")
+
+    content = tags[4].contents[0].strip()
 
     return int(content.replace(",", ""))
 

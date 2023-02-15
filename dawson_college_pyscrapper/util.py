@@ -31,7 +31,7 @@ def get_soup_of_page(url: str, header: Optional[Dict[str, str]] = None) -> Beaut
         logger.debug(f"Failed to get the page at {url}. Got response code {response.status_code}")
         raise PageDetailsError
 
-    return BeautifulSoup(response.text.strip(), "lxml")
+    return BeautifulSoup(response.text.strip(), "html.parser")
 
 
 def get_date_of_modification(html_soup: BeautifulSoup) -> str:
@@ -41,9 +41,14 @@ def get_date_of_modification(html_soup: BeautifulSoup) -> str:
     :param html_soup: The BeautifulSoup object of the page to get the date of modification of.
     :return: The date of modification of the page. If the date of modification is not found, an empty string will be returned.
     """
-    date_modified_text = html_soup.find(class_="page-mod-date").contents[0].strip()
+    default_return = ""
+    if not (html_found := html_soup.find(class_="page-mod-date")):
+        logger.debug(f"Failed to get the date of modification for {html_soup}")
+        return default_return
 
-    return date_modified_text.replace("Last Modified: ", "")
+    date_modified_text = html_found.contents[0].strip()
+
+    return date_modified_text.replace("Last Modified: ", default_return)
 
 
 def parse_program_page(program_url: str) -> ProgramPageData:
@@ -63,10 +68,10 @@ def get_number_of_type(data_frame: DataFrame, wanted_type: str):
     """
     A helper function to get the number of programs of a given type.
 
-    :param data_frame: The DataFrame to get the number of programs of a given type from. It is important that the DataFrame has a column named "type".
+    :param data_frame: The DataFrame to get the number of programs of a given type from. It is important that the DataFrame has a column named "program_type".
     :param wanted_type: The type of program to get the number of.
     :return: The number of programs of the given type.
     """
-    query = data_frame["type"] == wanted_type
+    query = data_frame["program_type"] == wanted_type
 
     return len(data_frame[query])
