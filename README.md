@@ -7,7 +7,7 @@ A Python module which contains useful functions to help scrap data from [Dawson 
 - Get information on all the programs offered by Dawson College (ex: Computer Science, Computer Engineering, etc.)
 - Get an estimate of the total number of students enrolled
 - Get the total number of faculty members
-
+- Get the general metrics of Dawson College (ex: total number of programs offered, number of programs, number of profiles, number of disciplines, number of special studies, number of general studies, etc.)
 
 ## Usage
 
@@ -18,7 +18,77 @@ A Python module which contains useful functions to help scrap data from [Dawson 
 
 ### Using the core functionality
 
-How should the user interact with this module or service?
+#### Getting program details for a specific program
+
+```python
+from dawson_college_pyscrapper.scrapper import get_program_details
+
+program_url = "https://www.dawsoncollege.qc.ca/programs/program-name"
+# Get the BeautifulSoup Tag object of the program that is listed on the programs page.
+listed_program = BeautifulSoup(requests.get(PROGRAMS_LISTING_URL).text.strip(), "html.parser").find("tr")
+
+# Get the details of the program at the given URL.
+program_details = get_program_details(program_url=program_url, listed_program=listed_program)
+print(program_details)
+```
+
+#### Get details of all programs
+```python
+from dawson_college_pyscrapper.scrapper import get_programs
+
+programs = get_programs()
+for program in programs:
+    print(f"Program Name: {program.name}")
+    print(f"Modified Date: {program.modified_date}")
+    print(f"Program Type: {program.program_type}")
+    print(f"Program URL: {program.url}")
+    print("\n")
+```
+
+#### Get the total number of students enrolled
+```python
+from dawson_college_pyscrapper.scrapper import get_total_number_of_students
+
+total_number_of_students = get_total_number_of_students()
+print(f"Total number of students: {total_number_of_students}")
+```
+
+#### Get the total number of faculty members
+```python
+from dawson_college_pyscrapper.scrapper import get_total_number_of_faculty_members
+
+total_number_of_faculty_members = get_total_number_of_faculty_members()
+print(f"Total number of faculty members: {total_number_of_faculty_members}")
+```
+
+#### Get the general metrics of Dawson College
+```python
+from dawson_college_pyscrapper.scrapper import scrap
+
+generalMetrics = scrap()
+print(f"Total programs offered: {GeneralMetrics.total_programs_offered}")
+print(f"Number of programs: {GeneralMetrics.number_of_programs}")
+print(f"Number of profiles: {GeneralMetrics.number_of_profiles}")
+print(f"Number of disciplines: {GeneralMetrics.number_of_disciplines}")
+print(f"Number of special studies: {GeneralMetrics.number_of_special_studies}")
+print(f"Number of general studies: {GeneralMetrics.number_of_General_studies}")
+print("\n")
+print("Year count:")
+for year, count in GeneralMetrics.total_year_counts.items():
+    print(f"{year}: {count}")
+
+print("\n")
+print("Programs:")
+for program in GeneralMetrics.programs:
+    print(f"Program Name: {program.name}")
+    print(f"Modified Date: {program.modified_date}")
+    print(f"Program Type: {program.program_type}")
+    print(f"Program URL: {program.url}")
+    print("\n")
+```
+
+#### More examples
+Check out the examples in the tests directory.
 
 ## Development
 
