@@ -66,6 +66,7 @@ push = false
 ]
 "pyproject.toml" = [
     'current_version = "{version}"',
+    'version = "{version}"'
 ]
 "setup.cfg" = [
     'version = {version}'
