@@ -217,20 +217,14 @@ def test_get_programs_returns_empty_list_when_error_occurs(mocker, requests_mock
 
 def test_get_total_number_of_students(mocker):
     # For the sake of the test just return a number in the html. The page has much more than this normally.
-    # example_html = """
-    # <html>
-    #     <body>
-    #         <div class="BNeawe">Collège Dawson (French)</div>
-    #         <div class="BNeawe">Collège Dawson (French)</div>
-    #         <div class="BNeawe">Students</div>
-    #         <div class="BNeawe">11,000</div>
-    #     </body>
-    # </html>
-    # """
     example_html = """
     <html>
         <body>
-            <div class="Z0LcW t2b5Cf">11,000.5</div>
+            <div class="BNeawe">Collège Dawson (French)</div>
+            <div class="BNeawe">Collège Dawson (French)</div>
+            <div class="BNeawe">Students</div>
+            <div class="BNeawe">Dawson College (English)</div>
+            <div class="BNeawe">11,000</div>
         </body>
     </html>
     """
@@ -248,7 +242,11 @@ def test_get_total_number_of_students_invalid_number_in_html(requests_mock):
     example_html = """
     <html>
         <body>
-            <div class="Z0LcW t2b5Cf">11,000.5</div>
+            <div class="BNeawe">Collège Dawson (French)</div>
+            <div class="BNeawe">Collège Dawson (French)</div>
+            <div class="BNeawe">Students</div>
+            <div class="BNeawe">Dawson College (English)</div>
+            <div class="BNeawe">11,000.5</div>
         </body>
     </html>
     """

@@ -63,14 +63,14 @@ def test_parse_program_page(mocker, mock_successful_response):
 
 
 def test_get_number_of_type_zero(mocker):
-    df = pd.DataFrame({"type": [1, 2, 3]})
+    df = pd.DataFrame({"program_type": [1, 2, 3]})
 
     result = get_number_of_type(df, "test")
     assert result == 0
 
 
 def test_get_number_of_type_some_types_found(mocker):
-    df = pd.DataFrame({"type": ["test", "another test", "test"]})
+    df = pd.DataFrame({"program_type": ["test", "another test", "test"]})
 
     result = get_number_of_type(df, "test")
     assert result == 2

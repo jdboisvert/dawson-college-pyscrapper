@@ -42,10 +42,11 @@ def get_date_of_modification(html_soup: BeautifulSoup) -> str:
     :return: The date of modification of the page. If the date of modification is not found, an empty string will be returned.
     """
     default_return = ""
-    if not (contents := html_soup.find(class_="page-mod-date").contents):
+    if not (html_found := html_soup.find(class_="page-mod-date")):
+        logger.debug(f"Failed to get the date of modification for {html_soup}")
         return default_return
 
-    date_modified_text = contents[0].strip()
+    date_modified_text = html_found.contents[0].strip()
 
     return date_modified_text.replace("Last Modified: ", default_return)
 
@@ -67,10 +68,10 @@ def get_number_of_type(data_frame: DataFrame, wanted_type: str):
     """
     A helper function to get the number of programs of a given type.
 
-    :param data_frame: The DataFrame to get the number of programs of a given type from. It is important that the DataFrame has a column named "type".
+    :param data_frame: The DataFrame to get the number of programs of a given type from. It is important that the DataFrame has a column named "program_type".
     :param wanted_type: The type of program to get the number of.
     :return: The number of programs of the given type.
     """
-    query = data_frame["type"] == wanted_type
+    query = data_frame["program_type"] == wanted_type
 
     return len(data_frame[query])
