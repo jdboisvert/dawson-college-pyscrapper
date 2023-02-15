@@ -1,6 +1,6 @@
 # Dawson College PyScrapper v1.0.1
 
-A Python module which contains useful functions to help scrap data from [Dawson College](https://www.dawsoncollege.qc.ca/) which is a CEGEP in Montreal Quebec Canada.
+A Python module which contains useful functions to help scrape data from [Dawson College](https://www.dawsoncollege.qc.ca/) which is a CEGEP in Montreal Quebec Canada.
 
 ## Features
 
@@ -63,9 +63,9 @@ print(f"Total number of faculty members: {total_number_of_faculty_members}")
 
 #### Get the general metrics of Dawson College
 ```python
-from dawson_college_pyscrapper.scrapper import scrap
+from dawson_college_pyscrapper.scrapper import scrape
 
-generalMetrics = scrap()
+generalMetrics = scrape()
 print(f"Total programs offered: {GeneralMetrics.total_programs_offered}")
 print(f"Number of programs: {GeneralMetrics.number_of_programs}")
 print(f"Number of profiles: {GeneralMetrics.number_of_profiles}")
