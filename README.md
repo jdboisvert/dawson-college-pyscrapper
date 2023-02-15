@@ -1,4 +1,4 @@
-# Dawson College PyScrapper v0.0.0
+# Dawson College PyScrapper v1.0.0
 
 A Python module which contains useful functions to help scrap data from [Dawson College](https://www.dawsoncollege.qc.ca/) which is a CEGEP in Montreal Quebec Canada.
 
@@ -106,8 +106,8 @@ eval "$(pyenv virtualenv-init -)"
 source ~/.zshrc
 
 # create a virtualenv
-pyenv install 3.11.1
-pyenv virtualenv 3.11.1 dawson_college_pyscrapper
+pyenv install 1.0.0
+pyenv virtualenv 1.0.0 dawson_college_pyscrapper
 pyenv activate dawson_college_pyscrapper
 
 # install dependencies
