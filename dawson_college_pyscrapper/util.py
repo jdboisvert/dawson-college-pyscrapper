@@ -31,7 +31,7 @@ def get_soup_of_page(url: str, header: Optional[Dict[str, str]] = None) -> Beaut
         logger.debug(f"Failed to get the page at {url}. Got response code {response.status_code}")
         raise PageDetailsError
 
-    return BeautifulSoup(response.text.strip(), "lxml")
+    return BeautifulSoup(response.text.strip(), "html.parser")
 
 
 def get_date_of_modification(html_soup: BeautifulSoup) -> str:
