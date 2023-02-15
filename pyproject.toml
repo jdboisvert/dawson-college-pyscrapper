@@ -74,7 +74,7 @@ push = false
 "dawson_college_pyscrapper/__init__.py" = [
     '__version__ = "{version}"'
 ]
-'dawson_college_pyscrapper/tests/__init__.py' = [
+'tests/__init__.py' = [
     '__version__ = "{version}"'
 ]
 
