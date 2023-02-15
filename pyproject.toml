@@ -59,7 +59,7 @@ push = false
 
 [bumpver.file_patterns]
 "README.md"  = [
-    "{version}"
+    "v{version}"
 ]
 "VERSION" = [
     "{version}"
